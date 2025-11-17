@@ -10,6 +10,7 @@ import org.dynmap.Log;
 import org.dynmap.bukkit.helper.BukkitMaterial;
 import org.dynmap.bukkit.helper.BukkitVersionHelper;
 import org.dynmap.bukkit.helper.BukkitWorld;
+import org.dynmap.bukkit.helper.RegistryAccessResolver;
 import org.dynmap.bukkit.helper.BukkitVersionHelperGeneric.TexturesPayload;
 import org.dynmap.renderer.DynmapBlockState;
 import org.dynmap.utils.MapChunkCache;
@@ -39,7 +40,6 @@ import net.minecraft.nbt.NBTTagShort;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.resources.MinecraftKey;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.TagsBlock;
 import net.minecraft.world.level.biome.BiomeBase;
 import net.minecraft.world.level.block.Block;
@@ -97,14 +97,14 @@ public class BukkitVersionHelperSpigot121_3 extends BukkitVersionHelper {
         return names.toArray(new String[0]);
     }
 
-    private static IRegistry<BiomeBase> reg = null;
+        private static IRegistry<BiomeBase> reg = null;
 
-    private static IRegistry<BiomeBase> getBiomeReg() {
-    	if (reg == null) {
-    		reg = MinecraftServer.getServer().ba().e(Registries.aI); // MinecraftServer.registryAccess().lookupOrThrow(Registries.BIOME)
-    	}
-    	return reg;
-    }
+        private static IRegistry<BiomeBase> getBiomeReg() {
+                if (reg == null) {
+                        reg = RegistryAccessResolver.resolveRegistry(Registries.aI); // MinecraftServer.registryAccess().lookupOrThrow(Registries.BIOME)
+                }
+                return reg;
+        }
 
     private Object[] biomelist;
     /**
